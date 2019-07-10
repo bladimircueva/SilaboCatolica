@@ -1,0 +1,151 @@
+﻿<script src="~/Content/assets/js/ace-extra.min.js"></script>
+<script type="text/javascript">
+    try { ace.settings.loadState('main-container') } catch (e) { }
+    try { ace.settings.loadState('sidebar') } catch (e) { }
+</script>
+<script src="~/Content/assets/js/jquery-2.1.4.min.js"></script>
+<script src="~/Content/Librarys/datatables/jquery.dataTables.min.js"></script>
+<script src="~/Content/Librarys/datatables/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript">
+    if ('ontouchstart' in document.documentElement) document.write("<script src='assets/js/jquery.mobil e.custom.min.js'>" + "<" + "/script>");
+</script>
+<script src="~/Content/assets/js/bootstrap.min.js"></script>
+<script src="~/Content/assets/js/jquery-ui.custom.min.js"></script>
+<script src="~/Content/assets/js/jquery.ui.touch-punch.min.js"></script>
+<script src="~/Content/assets/js/jquery.easypiechart.min.js"></script>
+<script src="~/Content/assets/js/jquery.sparkline.index.min.js"></script>
+<script src="~/Content/assets/js/ace-elements.min.js"></script>
+<script src="~/Content/assets/js/ace.min.js"></script>
+<!--Scripts desarrollador-->
+<script src="~/Scripts/Site.js"></script>
+
+<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="#">Silabos</a>
+        </li>
+        <li class="active">Visualizar Silabos</li>
+    </ul><!-- /.breadcrumb -->
+</div>
+<div class="page-content">
+    <div class="container-fluid">
+        @*<center>
+                <h3>FACULTAD DEL JEFE DE DEPARTAMENTO</h3>
+                <h4>HABILITAR SILABUS</h4>
+            </center>*@
+        <div class="form-group row">
+            <label class="col-md-2 label-sm">ESCUELA PROFESIONAL:</label>
+            <div class="col-md-4">
+                <input class="form-control input-sm" type="text" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-2 label-sm">CODIGO DOCENTE:</label>
+            <div class="col-md-2">
+                <input class="form-control input-sm" type="text" />
+            </div>
+            <label class="col-md-1 label-sm">DOCENTE:</label>
+            <div class="col-md-4">
+                <input class="form-control input-sm" type="text" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-md-2 label-sm">CURSO:</label>
+            <div class="col-md-2">
+                <input class="form-control input-sm" type="text" />
+            </div>
+            <label class="col-md-1 label-sm">AÑO-SEMESTE:</label>
+            <div class="col-md-4">
+                <select class="form-control input-sm">
+                    <option>AÑO-SEMESTRE</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-sm btn-info" onclick="buscarSilabos()">
+                    <i class="glyphicon glyphicon-search"></i>
+                    &nbsp;
+                    Buscar
+                </button>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+        <div class="row">
+            <table id="tblSilabos" class="table table-sm table-bordered" style="width:100%"></table>
+        </div>
+    </div>
+
+    <script>
+        var tblSilabos;
+        $(document).ready(function () {
+            tblSilabos = $('#tblSilabos').DataTable({
+                lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+                dom: 'rtip',
+                scrollX: true,
+                scrollY: true,
+                ajax: {
+                    url: '/Silabos/ListarSilabos',
+                    type: 'POST',
+                    datatype: 'json',
+                    data: function () {
+                    }
+                },
+                columns: [
+                    { title: "DOCENTE", data: "Docente", visible: true },
+                    { title: "CURSO", data: "Curso", visible: true },
+                    { title: "ESTADO", data: "Estado", visible: true },
+                    {
+                        title: "ACCIONES",
+                        width: "10%",
+                        render: function (data, type, full, meta) {
+                            var celda = '<center><button class="btn btn-sm btn-default"><i class="glyphicon glyphicon-floppy-disk"></i></button>&nbsp';
+                            celda += '<button class="btn btn-sm btn-default"><i class="glyphicon glyphicon-remove"></i></button></center>';
+                            return celda;
+                        },
+                        visible: true
+                    }
+                ],
+                serverSide: false,
+                deferLoading: 0,
+                iDisplayLength: 5,
+                language: dataTableLanguage
+            });
+        });
+        function buscarSilabos() {
+            tblSilabos.ajax.reload();
+        }
+    </script>
+</div>
+@*@{
+        ViewBag.Title = "Home Page";
+    }
+
+    <div class="jumbotron">
+        <h1>ASP.NET</h1>
+        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+        <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Getting started</h2>
+            <p>
+                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+                enables a clean separation of concerns and gives you full control over markup
+                for enjoyable, agile development.
+            </p>
+            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Get more libraries</h2>
+            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Web Hosting</h2>
+            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        </div>
+    </div>*@
