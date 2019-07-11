@@ -10,10 +10,9 @@
     <title></title>
 </head>
 <body>
-    <form id="formCustomerReport" runat="server">  
-    <div>  
-        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>  
-    </div>  
-</form> 
+     <form id="formCustomerReport" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        <rsweb:ReportViewer ID="CustomerListReportViewer" runat="server" AsyncRendering="false"></rsweb:ReportViewer>
+    </form> 
 </body>
 </html>
